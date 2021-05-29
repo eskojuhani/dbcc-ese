@@ -35,6 +35,8 @@ app.post('/analyze', function(req, res) {
     });
 });
 
+const isAlpha = str => /^[a-zA-Z]*$/.test(str);
+
 function analyze(body) {
   return new Promise((resolve, reject) => {
     try {
@@ -64,7 +66,7 @@ function analyze(body) {
       words += (prevWasSpace ? 0 : 1)
 
       chars = Object.keys(chars).filter(key => {
-        return isNaN(key)
+        return isAlpha(key)
       }).sort().reduce((a, c) => ({ ...a, ...{ [c]: chars[c] } }), {});
 
       var result = {
@@ -79,7 +81,10 @@ function analyze(body) {
   });
 }
 
+module.exports = app;
+/*
 var server = app.listen(process.env.PORT || 8080, function() {
   var port = server.address().port;
   console.log("App now running on port", port);
 });
+*/
