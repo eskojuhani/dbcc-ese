@@ -6,7 +6,6 @@ var app = express();
 app.use(express.json());
 app.use(cors())
 
-//
 app.use(function(req, res, next) {
   origin = "*";
 
@@ -25,7 +24,6 @@ app.use(function(req, res, next) {
 });
 
 app.post('/analyze', function(req, res) {
-  console.log("analyze");
   res.charset = 'utf-8';
   analyze(req.body)
     .then(result => {
@@ -33,7 +31,6 @@ app.post('/analyze', function(req, res) {
       return;
     })
     .catch(err => {
-      console.log(err);
       res.status(500).send({error: err.toString(), input: req.body });
     });
 });
@@ -82,18 +79,7 @@ function analyze(body) {
   });
 }
 
-//
-// Initialize the app.
 var server = app.listen(process.env.PORT || 8080, function() {
   var port = server.address().port;
   console.log("App now running on port", port);
 });
-
-
-// Generic error handler used by all endpoints.
-function handleError(res, reason, message, code) {
-  console.log("ERROR: " + reason);
-  res.status(code || 500).json({
-    "error": message
-  });
-}
