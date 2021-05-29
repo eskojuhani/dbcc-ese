@@ -22,7 +22,7 @@ test("POST /analyze endpoint", async () => {
           "o": 1,
           "s": 1,
           "t": 1,
-        }, ],
+        }],
         textLength: {
           "withSpaces": 13,
           "withoutSpaces": 11,
@@ -56,7 +56,7 @@ test("POST /analyze endpoint 2", async () => {
           "t": 4,
           "w": 1,
           "y": 1
-        }, ],
+        }],
         textLength: {
           "withSpaces": 33,
           "withoutSpaces": 27,
