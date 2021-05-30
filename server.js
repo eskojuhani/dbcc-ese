@@ -31,7 +31,7 @@ app.post('/analyze', function(req, res) {
       return;
     })
     .catch(err => {
-      res.status(500).send({error: err.toString(), input: req.body });
+      res.status(500).send({error: err.toString()});
     });
 });
 
@@ -41,6 +41,9 @@ function analyze(body) {
   return new Promise((resolve, reject) => {
     try {
       var input = JSON.parse(JSON.stringify(body));
+      if (!input.hasOwnProperty('text')) {
+        reject("Bad input - text field missing");
+      }
       var inputText = input.text.replace(/[^\x00-\x7F]/g,"");
 
       var words = 0;
@@ -82,9 +85,3 @@ function analyze(body) {
 }
 
 module.exports = app;
-/*
-var server = app.listen(process.env.PORT || 8080, function() {
-  var port = server.address().port;
-  console.log("App now running on port", port);
-});
-*/
